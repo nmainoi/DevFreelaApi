@@ -1,0 +1,37 @@
+# Arquivos temporários e diretórios
+[Tt]emp/
+[Oo]bj/
+[Bb]in/
+[Dd]ebug/
+[Rr]elease/
+
+# Arquivos de configuração
+*.user
+*.suo
+*.sln.iml
+.vscode/
+
+# Dependências do projeto
+/node_modules/
+/bin/
+/obj/
+
+# Arquivos de configuração de ambiente (opcional)
+.env
+
+# Visual Studio Code (opcional)
+.vscode/
+
+# Arquivos de log
+*.log
+
+# Cache de pacotes do NuGet (opcional)
+.nuget/
+packages/
+
+# Arquivos de saída de compilação
+build/
+logs/
+
+# Mac
+.DS_Store
