@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace DevFreela.API.Controllers
 {
     [Route("api/projects")]
-    public class UserController : ControllerBase
+    public class ProjectsController : ControllerBase
     {
         [HttpGet]
         public IActionResult Get(string query)
