@@ -53,13 +53,16 @@ namespace DevFreela.Application.Services.Implementations
              .Include( p => p.FreeLancer)
              .SingleOrDefault( p => p.Id == id);
 
+            if(project == null) return null;
              var projectsViewModel = new ProjectDetailsViewModel(
                     project.Id,
                     project.Description,
                     project.Title,
                     project.TotalCost,
                     project.StartedAt,
-                    project.FinishedAt
+                    project.FinishedAt,
+                    project.Client.FullName,
+                    project.FreeLancer.FullName
 
              );
 
