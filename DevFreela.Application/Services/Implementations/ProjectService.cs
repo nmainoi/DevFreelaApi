@@ -31,17 +31,6 @@ namespace DevFreela.Application.Services.Implementations
             _dbContext.ProjectComments.Add(comment);
         }
 
-        public void Delete(int id)
-        {
-            var project = _dbContext.Projects.SingleOrDefault( p => p.Id == id);
-
-            project?.Cancel();
-        }
-
-        public void Finish(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<ProjectViewModel> GetAll(string query)
         {
@@ -68,15 +57,33 @@ namespace DevFreela.Application.Services.Implementations
 
              return projectsViewModel;
         }
+        public void Delete(int id)
+        {
+            var project = _dbContext.Projects.SingleOrDefault( p => p.Id == id);
+
+            project?.Cancel();
+        }
+
+
+        public void Finish(int id)
+        {
+             var project = _dbContext.Projects.SingleOrDefault( p => p.Id == id);
+
+            project?.Finish();
+        }
 
         public void Start(int id)
         {
-            throw new NotImplementedException();
+             var project = _dbContext.Projects.SingleOrDefault( p => p.Id == id);
+
+            project?.Start();
         }
 
         public void Update(UpdateProjectInputModel inputModel)
         {
-            throw new NotImplementedException();
+            var project = _dbContext.Projects.SingleOrDefault( p => p.Id == inputModel.Id);
+
+            project?.Update(inputModel.Title,inputModel.Description,inputModel.TotalCost);
         }
     }
 }
