@@ -25,12 +25,18 @@ namespace DevFreela.Infrastructure.Persistence
 
             Skills = new List<Skill>{
                 new("C#"),
-                new(".net core")
+                new(".net core"),
+            };
+
+            ProjectComments = new List<ProjectComment>{
+                new("S",1,2)
             };
         }
 
         public List<Project> Projects { get; private set; }
         public List<User> Users { get; private set; }
         public List<Skill> Skills  { get; private set; }
+
+        public List<ProjectComment> ProjectComments { get; private set; }
     }
 }
