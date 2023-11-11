@@ -4,7 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using DevFreela.API.models;
+using DevFreela.Application.Commands.CreateComment;
+using DevFreela.Application.Commands.CreateProject;
 using DevFreela.Application.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -14,18 +17,19 @@ namespace DevFreela.API.Controllers
     public class ProjectsController : ControllerBase
     {
 
-        private readonly IProjectService _projectService;
-
-        public ProjectsController(IProjectService projectService)
+      //  private readonly IProjectService _projectService;
+        private readonly IMediator _mediator;
+        public ProjectsController( IMediator mediator)
         {
-            _projectService = projectService;
+       //     _projectService = projectService;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public IActionResult Get(string query)
         {
-            var project = _projectService.GetAll(query);
-            return Ok(project);
+            //var project = _projectService.GetAll(query);
+            return Ok(query);
         }
 
         [HttpGet("{id}")]
@@ -36,18 +40,30 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CreateProjectModel createProject)
+        public async Task<IActionResult> Post([FromBody] CreateProjectCommand createProjectCommand)
         {
-            if (createProject.Title.Length < 1)
+            if (createProjectCommand.Title.Length < 1)
             {
                 return BadRequest();
             }
 
-            return CreatedAtAction(nameof(GetById), new { id = createProject }, createProject);
+            var id = await _mediator.Send(createProjectCommand);
+
+            return CreatedAtAction(nameof(GetById), new { id = id }, createProjectCommand);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] CreateCommentCommand command)
+        {
+            var id = await _mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetById), new { id = id }, command);
+
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] UpdateProjectModel updateProject){
+        public IActionResult Put(int id, [FromBody] UpdateProjectModel updateProject)
+        {
             if (updateProject.Description.Length < 1)
             {
                 return BadRequest();
@@ -55,8 +71,9 @@ namespace DevFreela.API.Controllers
 
             return NoContent();
         }
-            [HttpDelete("{id}")]
-        public IActionResult Delete(int id){
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
 
             return NoContent();
         }

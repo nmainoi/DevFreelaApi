@@ -10,29 +10,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevFreela.Application.Services.Implementations
 {
-    public class ProjectService : IProjectService
+    public class ProjectService 
     {
         private readonly DevFreelaDbContext _dbContext;
         public ProjectService(DevFreelaDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public int Create(NewProjectInputModel inputModel)
-        {
-           var project = new Project(inputModel.Title, inputModel.Description, inputModel.IdClient, inputModel.IdFreelance, inputModel.TotalCost);
-
-           _dbContext.Projects.Add(project);
-
-           _dbContext.SaveChanges();
-           return project.Id;
-        }
+ 
 
         public void CreateComment(CreateCommentInputModel inputModel)
         {
-            var comment = new ProjectComment(inputModel.Content, inputModel.IdProject, inputModel.IdUser);
-
-            _dbContext.ProjectComments.Add(comment);
-           _dbContext.SaveChanges();
+            
 
         }
 

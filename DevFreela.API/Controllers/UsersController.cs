@@ -13,17 +13,17 @@ namespace DevFreela.API.Controllers
     [Route("api/users")]
     public class UsersController : ControllerBase
     {
-            private readonly OpeningTimeModel _option;
-        public UsersController(IOptions<OpeningTimeModel> option)
+
+        public UsersController()
         {
-            _option = option.Value;
+            
         }
         [HttpGet("{id}")]
 
 
         public IActionResult GetById(int id)
         {
-            var mess = _option.StartAt;
+           
             return Ok();
         }
         [HttpPost]
