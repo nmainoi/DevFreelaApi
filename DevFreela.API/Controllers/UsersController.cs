@@ -26,6 +26,7 @@ namespace DevFreela.API.Controllers
            
             return Ok();
         }
+        
         [HttpPost]
         public IActionResult Post([FromBody] CreateUserModel createUserModel)
         {

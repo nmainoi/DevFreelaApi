@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DevFreela.API.models;
 using DevFreela.Application.Commands.CreateComment;
 using DevFreela.Application.Commands.CreateProject;
+using DevFreela.Application.Query.GetAllProjects;
 using DevFreela.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,19 +18,22 @@ namespace DevFreela.API.Controllers
     public class ProjectsController : ControllerBase
     {
 
-      //  private readonly IProjectService _projectService;
+        //  private readonly IProjectService _projectService;
         private readonly IMediator _mediator;
-        public ProjectsController( IMediator mediator)
+        public ProjectsController(IMediator mediator)
         {
-       //     _projectService = projectService;
+            //     _projectService = projectService;
             _mediator = mediator;
         }
 
         [HttpGet]
-        public IActionResult Get(string query)
+        public async Task<IActionResult> GetAllProjects()
         {
-            //var project = _projectService.GetAll(query);
-            return Ok(query);
+            var query = new GetAllProjectsQuery();
+
+            var result = await this._mediator.Send(query);
+
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
